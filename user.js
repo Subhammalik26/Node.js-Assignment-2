@@ -41,8 +41,11 @@ user.post('/add', myMiddleware, (req, res) => {
 user.get('/users', myMiddleware, (req, res) => {
  fs.readFile('users.txt', 'utf-8', (err, data) => {    // Read the data from the text file.
   if (err) {
-    res.redirect('/create');   //If there are no user then redirect to "create" route.
-  } else {
+    res.redirect('/create');   
+  } else if (data === null) {
+    res.redirect('/create');   // If there are no user then redirect to "create" route.
+  }
+   else {
       res.send(data);  // Response back or show the data to the client or user.
     }
   });
